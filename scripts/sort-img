@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Find the highest value of n in existing filenames
+n=1
+#existing_n=$(find . -maxdepth 1 -type f -name "wallpaper*" | sed 's/[^0-9]*//g' | sort -n | tail -n 1)
+
+#if [ -z "$existing_n" ]; then
+#   n=1
+#else
+#    n=$((existing_n + 1))
+#fi
+
+# Loop through all jpg and png files in the current directory
+for file in *.jpg *.png; do
+    # Check if the file exists
+    if [ -e "$file" ]; then
+        # Generate the new filename
+        new_name="wallpaper$n.${file##*.}"
+        
+        # Rename the file
+        mv "$file" "$new_name"
+        
+        # Increment n
+        ((n++))
+    fi
+done
+

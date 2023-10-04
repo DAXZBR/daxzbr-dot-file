@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+#echo "The selected option is: ${options[$options_indice]} - image indice is $image_indice"
+
+options_indice="$1"
+image_indice="$2"
+image_folder_arg="$3"
+imgPath="$HOME/Imagens/$image_folder_arg"
+
+change_wallpaper_finally_lol() {
+	local arg=$1
+	image_extension=$arg
+	image_extension_arr=("png" "jpg" "jpeg")                                     #max at 2
+	options=("--bg-fill" "--bg-center" "--bg-scale" "--bg-tile" "--bg-seamless") #max at 5
+	if [[ "$image_extension" == "png" ]]; then
+		echo "Valid image file with extension .$file_extension"
+		feh ${options[$options_indice]} $HOME/Imagens/wallpapers/wallpaper${image_indice}.${image_extension[0]}
+	else
+		echo "It's not png .$file_extension"
+	fi
+}
+
+verify_image_extension() {
+	image_file="/home/daxzbr/Imagens/wallpapers/wallpaper2.png"
+	trimmed_file="${image_file##*.}"
+	change_wallpaper_finally_lol $trimmed_file
+}
+
+if [[ $# -gt 0 ]]; then
+	verify_image_extension
+else
+	echo "This script needs at least 3 arguments!"
+	exit 1
+fi
